@@ -1,16 +1,18 @@
 package org.acme.quickstart;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 
-@Path("/hello")
-public class GreetingResource {
+import javax.enterprise.context.ApplicationScoped;
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "hello";
+@ApplicationScoped
+public class GreetingResource implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+    @Override
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent apiGatewayProxyRequestEvent,
+                                                      Context context) {
+        return new APIGatewayProxyResponseEvent().withBody("Hello Lambda from Native Quarkus").withStatusCode(200);
+
     }
 }
