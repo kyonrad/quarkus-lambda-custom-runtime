@@ -18,5 +18,5 @@ if [[ "$OSTYPE" == "msys" ]]; then
     pwdstr="pwd -W"
 fi
 
-docker run -v $("$pwdstr"):/temp assembly
+docker run -v $($pwdstr):/temp assembly
 fi
